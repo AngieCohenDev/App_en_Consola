@@ -1,13 +1,14 @@
-const { log } = require('console');
+const { log } = require("console");
+const { resolve } = require("path");
 
-require('colors');
+require("colors");
 
 const mostarMenu = () => {
-
+  return new Promise((resolve) => {
     console.clear();
-    console.log('============================'.red);
-    console.log('   Seleccione una opcion'.red);
-    console.log('============================'.red);
+    console.log("============================".red);
+    console.log("   Seleccione una opcion".red);
+    console.log("============================".red);
 
     console.log(`${"1.".red} Crear tarea`);
     console.log(`${"2.".red} Listar tarea`);
@@ -17,30 +18,33 @@ const mostarMenu = () => {
     console.log(`${"6.".red} Borrar tarea`);
     console.log(`${"0.".red} Salir \n`);
 
-    const readLine = require('readline').createInterface({
-        input: process.stdin,
-        output: process.stdout
+    const readLine = require("readline").createInterface({
+      input: process.stdin,
+      output: process.stdout,
     });
 
-    readLine.question('Selecciones una opcion: ', (opt)=>{
-        readLine.close();
-    })
+    readLine.question("Selecciones una opcion: ", (opt) => {
+      readLine.close();
+      resolve(opt);
+    });
+  });
+};
 
-}
-
-const pausa = () =>{
-    const readLine = require('readline').createInterface({
-        input: process.stdin,
-        output: process.stdout
+const pausa = () => {
+  return new Promise((resolve) => {
+    const readLine = require("readline").createInterface({
+      input: process.stdin,
+      output: process.stdout,
     });
 
-    readLine.question( `\nPresione ${'ENTER'.blue} para continuar \n`, (opt)=>{
-        readLine.close();
-    })
+    readLine.question(`\nPresione ${"ENTER".blue} para continuar \n`, (opt) => {
+      readLine.close();
+      resolve();
+    });
+  });
+};
 
-}
-
-module.exports ={
-    mostarMenu,
-    pausa
-}
+module.exports = {
+  mostarMenu,
+  pausa,
+};
