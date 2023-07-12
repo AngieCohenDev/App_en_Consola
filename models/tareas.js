@@ -3,9 +3,7 @@ require('colors');
 
 class Tareas {
 
-    _listado = {
-        'abc': 123
-    };
+  
 
     get ListadoArr() {
 
@@ -51,8 +49,21 @@ class Tareas {
                             ? 'Completada'.green : 'Pendiente'.red;
             
             console.log(`${idx} ${desc} :: ${estado}`);
-        })
+        });
     }
+
+  toggleCompletadas(ids = []){
+    Object.keys(this._listado).forEach((id) =>{
+        if (ids.includes(id)){
+            if(!Boolean(this._listado[id].completadoEn)){
+                this._listado[id].completadoEn = new Date().toISOString();
+            }
+            return;
+        }
+        this._listado[id].completadoEn = null;
+    });
+  }
+   
 
     listarPendientesCompletadas(completadas = true){
         console.log();
@@ -77,8 +88,11 @@ class Tareas {
 
             }
 
-        })
+        });
+
     }
+
+    
 }
 
 module.exports = Tareas;
